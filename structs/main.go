@@ -23,6 +23,12 @@ func main() {
 		contact:   alexContact,
 	}
 
+	mySlice := []string{"Hey", "There", "How", "Are", "You"}
+
+	updateSLice(mySlice)
+
+	fmt.Println(mySlice)
+
 	alex.updateName("Sandor")
 
 	alex.print()
@@ -35,6 +41,10 @@ func (p *person) updateName(newFirstName string) {
 
 func (p person) print() {
 	fmt.Printf("%+v", p)
+}
+
+func updateSLice(s []string) {
+	s[0] = "Bye"
 }
 
 // Turn address into a value with *address
