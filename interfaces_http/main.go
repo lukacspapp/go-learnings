@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 )
+
+type logWriter struct{}
 
 func main() {
 
@@ -15,5 +18,20 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(resp.Body)
+	// bs := make([]byte, 99999)
+	// resp.Body.Read(bs)
+	// fmt.Println(string(bs))
+
+	lw := logWriter{}
+
+	io.Copy(lw, resp.Body)
+
+	fmt.Println(os.Open("../my_cards"))
+}
+
+func (lw logWriter) Write(bs []byte) (int, error) {
+	fmt.Println(string(bs))
+	fmt.Println("Just write this many bytes", len(bs))
+
+	return len(bs), nil
 }
